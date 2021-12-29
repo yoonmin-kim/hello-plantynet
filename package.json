@@ -1,5 +1,6 @@
 {
   "name": "hello-plantynet",
+  "homepage": "http://localhost",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -11,19 +12,19 @@
     "react": "^17.0.2",
     "react-bootstrap": "^2.0.2",
     "react-dom": "^17.0.2",
+    "react-redux": "^7.2.6",
     "react-router-dom": "^6.0.2",
     "react-scripts": "4.0.3",
+    "redux": "^4.1.2",
     "web-vitals": "^1.0.1"
   },
+  "proxy": "http://localhost:8080",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-
-  "proxy": "http://localhost:8080",
-
   "eslintConfig": {
     "extends": [
       "react-app",

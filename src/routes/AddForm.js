@@ -2,7 +2,7 @@ import React, { useEffect, useState,  } from 'react';
 import { Container } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import FormInput from '../form/FormInput';
-import * as service from "../services/reactController"
+import * as service from "../services/reactController";
 
 const AddForm = () => {
 
@@ -18,6 +18,7 @@ const AddForm = () => {
     const [itemNameErrorMsg, setItemNameErrorMsg] = useState('상품명 오류');
     const [priceErrorMsg, setPriceErrorMsg] = useState('가격 오류');
     const [quantityErrorMsg, setQuantityErrorMsg] = useState('수량 오류');
+    const [htmlTitle, setHtmlTitle] = useState('상품등록');
     const navigate = useNavigate();
 
     const fetchData = async () => {
@@ -45,8 +46,14 @@ const AddForm = () => {
         setItemType(temp);
     }
 
+    const updateTitle = () => {
+        const htmlTitleDom = document.querySelector("title");
+        htmlTitleDom.innerHTML = htmlTitle;
+    }
+
     useEffect(() => {
         fetchData();
+        updateTitle();
     }, []);
 
     const handleChange = (e) => {
@@ -90,7 +97,7 @@ const AddForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         clearError();
-        const res = await service.post('/api/item', item)
+        const res = await service.post('/api/item', item);
         
         if (res && res.status === 201) {
             navigate('/');

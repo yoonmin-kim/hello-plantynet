@@ -1,19 +1,34 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
 import { Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import * as service from "../services/reactController"
+import * as service from "../services/reactController";
 
 const EditList = () => {
 
     const [list, setList] = useState([]);
+    const [htmlTitle, setHtmlTitle] = useState('상품수정');
+    const navigate = useNavigate();
 
     const fetchData = async () => {
+        const authorize = await service.get("/api/authorize/manager,admin");
+        if (authorize.result === 'error') {
+            alert('해당 메뉴에 대한 권한이 없습니다.');
+            navigate('/');
+        }
+
         const listData = await service.get("/api/list");
         setList(listData);
     }
 
+    const updateTitle = () => {
+        const htmlTitleDom = document.querySelector("title");
+        htmlTitleDom.innerHTML = htmlTitle;
+    }
+
     useEffect(() => {
         fetchData();
+        updateTitle();
     }, []);
 
     return (

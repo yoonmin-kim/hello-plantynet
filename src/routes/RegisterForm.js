@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import FormInput from '../form/FormInput';
 import * as service from "../services/reactController"
 
@@ -9,6 +9,7 @@ const RegisterForm = () => {
     const [register, setRegister] = useState({username: '', password: '', role: 'ROLE_USER'});
     const [roles, setRoles] = useState([]);
     const [htmlTitle, setHtmlTitle] = useState('회원가입페이지');
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         const {name, value} = e.target;
@@ -44,7 +45,10 @@ const RegisterForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(register); 
+        const res = await service.post('/api/register', register);
+        if (res && res.data.result === 'success') {
+            navigate('/user/login');
+        }
     }
 
     return (
@@ -66,7 +70,7 @@ const RegisterForm = () => {
             <div className="form-group">
                 <label htmlFor="password" className="col-sm-2 control-label">비밀번호</label>
                 <div className="col-sm-10">
-                    <FormInput field="password" handleChange={handleChange} placeholder="패스워드"/>
+                    <FormInput field="password" type="password" handleChange={handleChange} placeholder="패스워드"/>
                 </div>
             </div>
             <div className="form-group col-sm-10">

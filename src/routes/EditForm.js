@@ -20,6 +20,7 @@ const EditForm = () => {
     const [itemNameErrorMsg, setItemNameErrorMsg] = useState('상품명 오류');
     const [priceErrorMsg, setPriceErrorMsg] = useState('가격 오류');
     const [quantityErrorMsg, setQuantityErrorMsg] = useState('수량 오류');
+    const [htmlTitle, setHtmlTitle] = useState('상품수정');
     const navigate = useNavigate();
 
     let tempRegions = [];
@@ -52,9 +53,15 @@ const EditForm = () => {
         setTarget(getTarget);
     }
 
+    const updateTitle = () => {
+        const htmlTitleDom = document.querySelector("title");
+        htmlTitleDom.innerHTML = htmlTitle;
+    }
+
     useEffect(() => {
         fetchData();
         tempRegions.push(target.regions);
+        updateTitle();
     }, []);
 
     const handleChange = (e) => {

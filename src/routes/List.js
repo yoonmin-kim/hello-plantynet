@@ -6,14 +6,21 @@ import * as service from "../services/reactController"
 const List = () => {
 
     const [list, setList] = useState([]);
+    const [htmlTitle, setHtmlTitle] = useState('상품목록');
 
     const fetchData = async () => {
         const listData = await service.get("/api/list");
         setList(listData);
     }
 
+    const updateTitle = () => {
+        const htmlTitleDom = document.querySelector("title");
+        htmlTitleDom.innerHTML = htmlTitle;
+    }
+
     useEffect(() => {
         fetchData();
+        updateTitle();
     }, []);
 
     return (
